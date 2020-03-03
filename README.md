@@ -1,6 +1,8 @@
 # Sing It
 
-Hosted by Netlify at <https://sing-it.netlify.com>
+Hosted by Netlify at <https://sing-it.netlify.com> 
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6d5ecf78-97ca-4c2a-ade0-103a5f321016/deploy-status)](https://app.netlify.com/sites/sing-it/deploys)
 
 ---
 
