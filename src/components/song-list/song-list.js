@@ -9,11 +9,11 @@ class SongList extends React.Component {
 
     return songs.filter(
       song =>
-        song.Name.toLowerCase().indexOf(this.props.filter.toLowerCase()) >= 0 ||
-        song.Artist.toLowerCase().indexOf(this.props.filter.toLowerCase()) >=
+        song.name.toLowerCase().indexOf(this.props.filter.toLowerCase()) >= 0 ||
+        song.artist.toLowerCase().indexOf(this.props.filter.toLowerCase()) >=
           0 ||
-        (song.Featured &&
-          song.Featured.toLowerCase().indexOf(
+        (song.featured &&
+          song.featured.toLowerCase().indexOf(
             this.props.filter.toLowerCase()
           ) >= 0)
     );

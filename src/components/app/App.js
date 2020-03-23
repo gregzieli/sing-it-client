@@ -1,18 +1,22 @@
-import React from 'react';
-import songs from '../../assets/songs.json';
-import './App.scss';
-import SongFilter from '../song-filter/song-filter';
-import SongList from '../song-list/song-list';
+import React from "react";
+import "./App.scss";
+import SongFilter from "../song-filter/song-filter";
+import SongList from "../song-list/song-list";
 
 class App extends React.Component {
-
   constructor() {
     super();
 
     this.state = {
-      songs: songs,
+      songs: [],
       filter: null
     };
+  }
+
+  async componentDidMount() {
+    const response = await fetch(`${process.env.REACT_APP_SERVER}/songs`);
+    const songs = await response.json();
+    this.setState({ songs: songs })
   }
 
   updateSearch(inputValue) {
@@ -29,10 +33,7 @@ class App extends React.Component {
           updateSearch={this.updateSearch.bind(this)}
           searchText={this.state.filter}
         />
-        <SongList
-          filter={this.state.filter}
-          songs={this.state.songs}
-        />
+        <SongList filter={this.state.filter} songs={this.state.songs} />
       </div>
     );
   }

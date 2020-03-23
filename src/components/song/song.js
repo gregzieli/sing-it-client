@@ -5,11 +5,11 @@ class Song extends Component {
     return (
       <li className="song-item">
         <span className="song-artist">
-                  {this.props.song.Artist}
-                  {this.props.song.Featured ? `, ${this.props.song.Featured}` : ""}
+          {this.props.song.artist}
+          {this.props.song.featured ? `, ${this.props.song.featured}` : ""}
         </span>
         <span> - </span>
-        <span className="song-name">{this.props.song.Name}</span>
+        <span className="song-name">{this.props.song.name}</span>
       </li>
     );
   }
