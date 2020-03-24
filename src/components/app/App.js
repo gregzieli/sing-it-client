@@ -2,6 +2,7 @@ import React from "react";
 import "./App.scss";
 import SongFilter from "../song-filter/song-filter";
 import SongList from "../song-list/song-list";
+import io from "socket.io-client";
 
 class App extends React.Component {
   constructor() {
@@ -16,7 +17,11 @@ class App extends React.Component {
   async componentDidMount() {
     const response = await fetch(`${process.env.REACT_APP_SERVER}/songs`);
     const songs = await response.json();
-    this.setState({ songs: songs })
+    this.setState({ songs: songs });
+
+    const socket = io(process.env.REACT_APP_SERVER);
+    socket.emit("msg", "hello there");
+    socket.on("res", console.log);
   }
 
   updateSearch(inputValue) {
