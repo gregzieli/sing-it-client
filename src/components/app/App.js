@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.scss";
-import Stash from "../stash/stash";
-import Home from "../home/home";
+
+const Home = lazy(() => import("../home/home"));
+const Stash = lazy(() => import("../stash/stash"));
 
 class App extends React.Component {
   constructor() {
@@ -20,15 +21,17 @@ class App extends React.Component {
     return (
       <Router>
         <div className="app">
-          <Link to="/">Songs</Link>
-          <Link to="/stash">Stash</Link>
-          <h1 className="app__title">Sing It!</h1>
-          <Switch>
-            <Route exact path="/">
-              <Home songs={this.state.songs} />
-            </Route>
-            <Route path="/stash" component={Stash} />
-          </Switch>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Link to="/">Songs</Link>
+            <Link to="/stash">Stash</Link>
+            <h1 className="app__title">Sing It!</h1>
+            <Switch>
+              <Route exact path="/">
+                <Home songs={this.state.songs} />
+              </Route>
+              <Route path="/stash" component={Stash} />
+            </Switch>
+          </Suspense>
         </div>
       </Router>
     );

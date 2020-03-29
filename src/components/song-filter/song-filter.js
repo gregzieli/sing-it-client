@@ -1,21 +1,17 @@
 import React from "react";
 
-class SongFilter extends React.Component {
-  handleChange(event) {
-    this.props.updateSearch(event.target.value);
-  }
+const SongFilter = ({ searchText, updateSearch }) => (
+  <input
+    type="text"
+    placeholder="Search a song..."
+    className="input-search"
+    onChange={event => handleChange(event, updateSearch)} 
+    value={searchText}
+  />
+);
 
-  render() {
-    return (
-      <input
-        type="text"
-        placeholder="Search a song..."
-        className="input-search"
-        onChange={this.handleChange.bind(this)}
-        value={this.props.searchText}
-      />
-    );
-  }
-}
+const handleChange = (event, callback) => {
+  callback(event.target.value);
+};
 
 export default SongFilter;
