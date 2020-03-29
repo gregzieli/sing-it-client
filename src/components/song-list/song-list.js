@@ -22,7 +22,7 @@ class SongList extends React.Component {
     return (
       <ul className="song-list">
         {this.filter(this.props.songs).map(song => (
-          <Song song={song} />
+          <Song song={song} key={song._id} />
         ))}
       </ul>
     );
