@@ -1,31 +1,12 @@
-import React, { Component } from "react";
-import Filter from "../song-filter/song-filter";
-import SongList from "../song-list/song-list";
+import React from "react";
+import FilterableSongList from "../song-list/filterable-song-list";
 
-class Home extends Component {
-  constructor() {
-    super();
-
-    this.state = { filter: "" };
+function Home({ songs, onStashAdd }) {
+  if (songs.length) {
+    return <FilterableSongList songs={songs} onStashAdd={onStashAdd} />;
   }
 
-  updateSearch(inputValue) {
-    this.setState({
-      filter: inputValue
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <Filter
-          updateSearch={this.updateSearch.bind(this)}
-          searchText={this.state.filter}
-        />
-        <SongList filter={this.state.filter} songs={this.props.songs} />
-      </div>
-    );
-  }
+  return <div>Loading...</div>
 }
 
 export default Home;

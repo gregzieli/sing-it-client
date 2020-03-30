@@ -1,11 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
+import SongRow from "../song/song-row";
 
-class Stash extends Component {
-  render() {
-    return (
-      <h1>My stash</h1>
-    );
-  }
+function Stash({ stash, onStashUpdate }) {
+  const updateStash = song => {
+    onStashUpdate(stash => stash.filter(x => x._id !== song._id));
+  };
+
+  return (
+    <ul className="song-list">
+      {stash.map(x => (
+        <SongRow song={x} key={x._id} onStashUpdate={() => updateStash(x)} />
+      ))}
+    </ul>
+  );
 }
 
 export default Stash;

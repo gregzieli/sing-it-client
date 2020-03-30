@@ -1,41 +1,47 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 import "./App.scss";
 
 const Home = lazy(() => import("../home/home"));
 const Stash = lazy(() => import("../stash/stash"));
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = { songs: [] };
-  }
+const App = () => {
+  toast.configure();
 
-  async componentDidMount() {
-    const response = await fetch(`${process.env.REACT_APP_SERVER}/songs`);
-    const songs = await response.json();
-    this.setState({ songs: songs });
-  }
+  const [songs, setSongs] = useState([]);
+  const [stash, setStash] = useState([]);
 
-  render() {
-    return (
-      <Router>
-        <div className="app">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Link to="/">Songs</Link>
-            <Link to="/stash">Stash</Link>
-            <h1 className="app__title">Sing It!</h1>
-            <Switch>
-              <Route exact path="/">
-                <Home songs={this.state.songs} />
-              </Route>
-              <Route path="/stash" component={Stash} />
-            </Switch>
-          </Suspense>
-        </div>
-      </Router>
-    );
-  }
-}
+  useEffect(() => {
+    axios(`${process.env.REACT_APP_SERVER}/songs`).then(res => {
+      setSongs(res.data);
+    });
+  }, []);
+
+  return (
+    <Router>
+      <div className="app">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Link to="/">Songs</Link>
+          <Link to="/stash">Stash</Link>
+          <h1 className="app__title">Sing It!</h1>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => <Home songs={songs} onStashAdd={setStash} />}
+            />
+            <Route
+              path="/stash"
+              render={() => <Stash stash={stash} onStashUpdate={setStash} />}
+            />
+          </Switch>
+        </Suspense>
+        <ToastContainer autoClose={1000} hideProgressBar />
+      </div>
+    </Router>
+  );
+};
 
 export default App;
