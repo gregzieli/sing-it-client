@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import SearchBar from "../song-filter/search-bar";
 import SongList from "./song-list";
 
-function FilterableSongList({ songs, onStashAdd }) {
+function FilterableSongList({ songs, stash, onStashAdd }) {
   const [filterText, setFilterText] = useState("");
 
   return (
@@ -12,7 +12,7 @@ function FilterableSongList({ songs, onStashAdd }) {
         filterText={filterText}
         onFilterTextChange={setFilterText}
       />
-      <SongList songs={songs} filterText={filterText} onStashAdd={onStashAdd} />
+      <SongList songs={songs} filterText={filterText} stash={stash} onStashAdd={onStashAdd} />
     </div>
   );
 }

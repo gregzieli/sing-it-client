@@ -3,31 +3,25 @@ import { toast } from "react-toastify";
 import SongRow from "../song/song-row";
 import "react-toastify/dist/ReactToastify.css";
 
-function SongList({ songs, filterText, onStashAdd }) {
+function SongList({ songs, filterText, stash, onStashAdd }) {
   const isMatch = song =>
     song.name.toLowerCase().indexOf(filterText) >= 0 ||
     song.artist.toLowerCase().indexOf(filterText) >= 0 ||
     (song.featured && song.featured.toLowerCase().indexOf(filterText) >= 0);
 
   const addToStash = song => {
-    onStashAdd(stash => {
-      if (!stash.some(x => x._id === song._id)) {
-        toast("Added to stash");
-        stash.push(song);
-      }
-      return stash;
-    });
+    toast("Added to stash");
+    onStashAdd(stash => [...stash, song]);
   };
+
+  const button = song =>
+    stash.some(x => x._id === song._id) ? null : (
+      <button onClick={() => addToStash(song)}>+</button>
+    );
 
   const rows = songs
     .filter(isMatch)
-    .map(x => (
-      <SongRow
-        song={x}
-        key={x._id}
-        stashActionButton={<button onClick={() => addToStash(x)}>+</button>}
-      />
-    ));
+    .map(x => <SongRow song={x} key={x._id} stashActionButton={button(x)} />);
 
   return <ul className="song-list">{rows}</ul>;
 }

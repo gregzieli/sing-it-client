@@ -32,7 +32,7 @@ const App = () => {
             <Route
               exact
               path="/"
-              render={() => <Home songs={songs} onStashAdd={setStash} />}
+              render={() => <Home songs={songs} stash={stash} onStashAdd={setStash} />}
             />
             <Route
               path="/stash"
