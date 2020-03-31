@@ -2,6 +2,8 @@ import React, { Suspense, lazy, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+
+import { useStateWithSessionStorage } from "../../hooks/storage"
 import "./App.scss";
 
 const Home = lazy(() => import("../home/home"));
@@ -11,7 +13,7 @@ const App = () => {
   toast.configure();
 
   const [songs, setSongs] = useState([]);
-  const [stash, setStash] = useState([]);
+  const [stash, setStash] = useStateWithSessionStorage("stash", []);
 
   useEffect(() => {
     axios(`${process.env.REACT_APP_SERVER}/songs`).then(res => {

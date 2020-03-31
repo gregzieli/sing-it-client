@@ -9,14 +9,25 @@ function SongList({ songs, filterText, onStashAdd }) {
     song.artist.toLowerCase().indexOf(filterText) >= 0 ||
     (song.featured && song.featured.toLowerCase().indexOf(filterText) >= 0);
 
-  const handleStashAdd = song => {
-    toast("Added to stash");
-    onStashAdd(stash => [...stash, song]);
-  }
+  const addToStash = song => {
+    onStashAdd(stash => {
+      if (!stash.some(x => x._id === song._id)) {
+        toast("Added to stash");
+        stash.push(song);
+      }
+      return stash;
+    });
+  };
 
   const rows = songs
     .filter(isMatch)
-    .map(x => <SongRow song={x} key={x._id} onStashUpdate={() => handleStashAdd(x)} />);
+    .map(x => (
+      <SongRow
+        song={x}
+        key={x._id}
+        stashActionButton={<button onClick={() => addToStash(x)}>+</button>}
+      />
+    ));
 
   return <ul className="song-list">{rows}</ul>;
 }
