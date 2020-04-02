@@ -26,7 +26,7 @@ const App = () => {
     <Router>
       <div className="app">
         <Suspense fallback={<div>Loading...</div>}>
-          <Link to="/">Songs</Link>
+          <Link to="/">Songs</Link> 
           <Link to="/stash">Stash</Link>
           <h1 className="app__title">Sing It!</h1>
           <Switch>

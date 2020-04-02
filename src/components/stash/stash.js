@@ -6,7 +6,7 @@ function Stash({ stash, setStash }) {
 
   return (
     <div>
-      {!!stash.length && <button onClick={clearAll}>Clear all</button>}
+      {!!stash.length && <button style={{ marginBottom: 10 }} onClick={clearAll}>Clear all</button>}
       <SongList songs={stash} stash={stash} setStash={setStash} />
     </div>
   );
