@@ -1,29 +1,26 @@
 import React from "react";
-import { toast } from "react-toastify";
+import { FixedSizeList as List } from "react-window";
+
 import SongRow from "../song/song-row";
-import "react-toastify/dist/ReactToastify.css";
 
-function SongList({ songs, filterText, stash, onStashAdd }) {
-  const isMatch = song =>
-    song.name.toLowerCase().indexOf(filterText) >= 0 ||
-    song.artist.toLowerCase().indexOf(filterText) >= 0 ||
-    (song.featured && song.featured.toLowerCase().indexOf(filterText) >= 0);
+function SongList({ songs, stash, setStash }) {
+  const Row = ({ index, style }) => (
+    <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
+      <SongRow song={songs[index]} stash={stash} setStash={setStash} />
+    </div>
+  );
 
-  const addToStash = song => {
-    toast("Added to stash");
-    onStashAdd(stash => [...stash, song]);
-  };
-
-  const button = song =>
-    stash.some(x => x._id === song._id) ? null : (
-      <button onClick={() => addToStash(song)}>+</button>
-    );
-
-  const rows = songs
-    .filter(isMatch)
-    .map(x => <SongRow song={x} key={x._id} stashActionButton={button(x)} />);
-
-  return <ul className="song-list">{rows}</ul>;
+  return (
+    <List
+      className="song-list"
+      height={window.innerHeight - 200}
+      itemCount={songs.length}
+      itemSize={40}
+      width={"100%"}
+    >
+      {Row}
+    </List>
+  );
 }
 
 export default SongList;

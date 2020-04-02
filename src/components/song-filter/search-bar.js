@@ -3,7 +3,7 @@ import React from "react";
 function SearchBar({filterText, onFilterTextChange}) {
     
   const handleFilterTextChange = event => {
-    onFilterTextChange(event.target.value);
+    onFilterTextChange(event.target.value.toLowerCase());
   };
 
   return (

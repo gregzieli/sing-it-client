@@ -2,8 +2,9 @@ import React, { Suspense, lazy, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { useStateWithSessionStorage } from "../../hooks/storage"
+import { useStateWithSessionStorage } from "../../hooks/storage";
 import "./App.scss";
 
 const Home = lazy(() => import("../home/home"));
@@ -32,15 +33,17 @@ const App = () => {
             <Route
               exact
               path="/"
-              render={() => <Home songs={songs} stash={stash} onStashAdd={setStash} />}
+              render={() => (
+                <Home songs={songs} stash={stash} setStash={setStash} />
+              )}
             />
             <Route
               path="/stash"
-              render={() => <Stash stash={stash} onStashUpdate={setStash} />}
+              render={() => <Stash stash={stash} setStash={setStash} />}
             />
           </Switch>
         </Suspense>
-        <ToastContainer autoClose={1000} hideProgressBar />
+        <ToastContainer autoClose={1500} hideProgressBar />
       </div>
     </Router>
   );
