@@ -3,7 +3,9 @@
 }
 
 body {
-  background-color: #6D90EF;
+  background-color: #6B5B95;
+  font-family: Calibri, "Gill Sans", "Segoe UI", Tahoma, Geneva, Verdana,
+    sans-serif;
 }
 
 .app {
@@ -19,35 +21,4 @@ body {
   font-weight: 300;
   margin-top: 0;
   color: #131815;
-}
-
-.input-search {
-  display: block;
-  width: 100%;
-  padding: 8px 4px;
-  font-size: 14px;
-  margin-bottom: 20px;
-  outline: none;
-}
-.input-search::-webkit-input-placeholder {
-  color: #758A9D;
-  font-weight: 300;
-}
-
-.song-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.song-item {
-  margin-bottom: 8px;
-  border: 1px solid #C1DEEB;
-  color: #131815;
-  font-weight: 300;
-  padding: 8px 8px;
-}
-
-.song-artist {
-  font-weight: bold;
 }

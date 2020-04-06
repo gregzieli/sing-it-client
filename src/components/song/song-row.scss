@@ -1,0 +1,26 @@
+.song-buttons {
+  float: left;
+  width: 10%;
+}
+
+.song-designation {
+  width: 90%;
+  float: left;
+  div {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+.song-item {
+  padding: 10px 0;
+}
+
+.song-artist {
+    font-weight: bold;
+}
+
+.list-item-even {
+  background-color: #f8f8f0;
+}

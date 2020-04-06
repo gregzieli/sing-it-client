@@ -1,42 +1,57 @@
-import React from "react";
+import React, { Suspense, lazy, useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { useStateWithSessionStorage } from "../../hooks/storage";
 import "./App.scss";
-import SongFilter from "../song-filter/song-filter";
-import SongList from "../song-list/song-list";
 
-class App extends React.Component {
-  constructor() {
-    super();
+const Home = lazy(() => import("../home/home"));
+const Stash = lazy(() => import("../stash/stash"));
 
-    this.state = {
-      songs: [],
-      filter: null
-    };
-  }
+const App = () => {
+  toast.configure();
 
-  async componentDidMount() {
-    const response = await fetch(`${process.env.REACT_APP_SERVER}/songs`);
-    const songs = await response.json();
-    this.setState({ songs: songs })
-  }
+  const [songs, setSongs] = useState([]);
+  const [stash, setStash] = useStateWithSessionStorage("stash", []);
 
-  updateSearch(inputValue) {
-    this.setState({
-      filter: inputValue
+  useEffect(() => {
+    axios(`${process.env.REACT_APP_SERVER}/songs`).then((res) => {
+      setSongs(res.data);
     });
-  }
+  }, []);
 
-  render() {
-    return (
+  return (
+    <Router>
       <div className="app">
-        <h1 className="app__title">Sing It!</h1>
-        <SongFilter
-          updateSearch={this.updateSearch.bind(this)}
-          searchText={this.state.filter}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Link to="/">Songs</Link>
+          <Link to="/stash">Stash</Link>
+          <h1 className="app__title">Sing It!</h1>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Home songs={songs} stash={stash} setStash={setStash} />
+              )}
+            />
+            <Route
+              path="/stash"
+              render={() => <Stash stash={stash} setStash={setStash} />}
+            />
+          </Switch>
+        </Suspense>
+        <ToastContainer
+          autoClose={1500}
+          position="bottom-center"
+          hideProgressBar
+          newestOnTop
         />
-        <SongList filter={this.state.filter} songs={this.state.songs} />
       </div>
-    );
-  }
-}
+    </Router>
+  );
+};
 
 export default App;

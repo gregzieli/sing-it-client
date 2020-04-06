@@ -1,32 +1,26 @@
 import React from "react";
-import Song from "../song/song";
+import { FixedSizeList as List } from "react-window";
 
-class SongList extends React.Component {
-  filter(songs) {
-    if (!this.props.filter) {
-      return songs;
-    }
+import SongRow from "../song/song-row";
 
-    return songs.filter(
-      song =>
-        song.name.toLowerCase().indexOf(this.props.filter.toLowerCase()) >= 0 ||
-        song.artist.toLowerCase().indexOf(this.props.filter.toLowerCase()) >=
-          0 ||
-        (song.featured &&
-          song.featured.toLowerCase().indexOf(
-            this.props.filter.toLowerCase()
-          ) >= 0)
-    );
-  }
-  render() {
-    return (
-      <ul className="song-list">
-        {this.filter(this.props.songs).map(song => (
-          <Song song={song} />
-        ))}
-      </ul>
-    );
-  }
+function SongList({ songs, stash, setStash }) {
+  const Row = ({ index, style }) => (
+    <div className={`song-item ${index % 2 ? "list-item-odd" : "list-item-even"}`} style={style}>
+      <SongRow song={songs[index]} stash={stash} setStash={setStash} />
+    </div>
+  );
+
+  return (
+    <List
+      className="song-list"
+      height={window.innerHeight - 190}
+      itemCount={songs.length}
+      itemSize={50}
+      width={"100%"}
+    >
+      {Row}
+    </List>
+  );
 }
 
 export default SongList;
