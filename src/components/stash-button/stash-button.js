@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import React from "react";
 import { toast } from "react-toastify";
 
@@ -15,9 +16,9 @@ function StashButton({ song, stash, setStash }) {
   const isInStash = stash.some(x => x._id === song._id);
 
   return isInStash ? (
-    <button onClick={remove}>-</button>
+    <span role="img" onClick={remove}>📤</span>
   ) : (
-    <button onClick={add}>+</button>
+    <span role="img" onClick={add}>📥</span>
   );
 }
 

@@ -7,12 +7,13 @@ function SongRow({ song, stash, setStash }) {
   const artist = `${song.artist}${song.featured ? `, ${song.featured}` : ""}`;
 
   const row = (
-    <div className="song-item">
-      <span className="song-artist">{artist}</span>
-      <span> - </span>
-      <span className="song-name">{song.name}</span>
+    <>
+      <div className="song-designation">
+        <div className="song-artist">{artist}</div>
+        <div className="song-name">{song.name}</div>
+      </div>
       <SongButtonSection song={song} stash={stash} setStash={setStash} />
-    </div>
+    </>
   );
 
   return row;

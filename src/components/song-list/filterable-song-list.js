@@ -6,7 +6,7 @@ import SongList from "./song-list";
 function FilterableSongList({ songs, stash, setStash }) {
   const [filterText, setFilterText] = useState("");
 
-  const isMatch = song =>
+  const isMatch = (song) =>
     !filterText ||
     song.name.toLowerCase().indexOf(filterText) >= 0 ||
     song.artist.toLowerCase().indexOf(filterText) >= 0 ||

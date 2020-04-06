@@ -17,7 +17,7 @@ const App = () => {
   const [stash, setStash] = useStateWithSessionStorage("stash", []);
 
   useEffect(() => {
-    axios(`${process.env.REACT_APP_SERVER}/songs`).then(res => {
+    axios(`${process.env.REACT_APP_SERVER}/songs`).then((res) => {
       setSongs(res.data);
     });
   }, []);
@@ -26,7 +26,7 @@ const App = () => {
     <Router>
       <div className="app">
         <Suspense fallback={<div>Loading...</div>}>
-          <Link to="/">Songs</Link> 
+          <Link to="/">Songs</Link>
           <Link to="/stash">Stash</Link>
           <h1 className="app__title">Sing It!</h1>
           <Switch>
@@ -43,7 +43,12 @@ const App = () => {
             />
           </Switch>
         </Suspense>
-        <ToastContainer autoClose={1500} hideProgressBar />
+        <ToastContainer
+          autoClose={1500}
+          position="bottom-center"
+          hideProgressBar
+          newestOnTop
+        />
       </div>
     </Router>
   );

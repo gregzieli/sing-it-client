@@ -5,7 +5,7 @@ import SongRow from "../song/song-row";
 
 function SongList({ songs, stash, setStash }) {
   const Row = ({ index, style }) => (
-    <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
+    <div className={`song-item ${index % 2 ? "list-item-odd" : "list-item-even"}`} style={style}>
       <SongRow song={songs[index]} stash={stash} setStash={setStash} />
     </div>
   );
@@ -13,9 +13,9 @@ function SongList({ songs, stash, setStash }) {
   return (
     <List
       className="song-list"
-      height={window.innerHeight - 200}
+      height={window.innerHeight - 190}
       itemCount={songs.length}
-      itemSize={40}
+      itemSize={50}
       width={"100%"}
     >
       {Row}
