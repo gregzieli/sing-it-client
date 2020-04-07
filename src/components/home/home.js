@@ -1,9 +1,9 @@
 import React from "react";
 import FilterableSongList from "../song-list/filterable-song-list";
 
-function Home({ songs, stash, setStash }) {
+function Home({ songs }) {
   if (songs.length) {
-    return <FilterableSongList songs={songs} stash={stash} setStash={setStash} />;
+    return <FilterableSongList songs={songs} />;
   }
 
   return <div>Loading...</div>

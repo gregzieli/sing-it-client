@@ -3,7 +3,7 @@ import React from "react";
 import StashButton from "../stash-button/stash-button";
 import "./song-row.scss";
 
-function SongRow({ song, stash, setStash }) {
+function SongRow({ song }) {
   const artist = `${song.artist}${song.featured ? `, ${song.featured}` : ""}`;
 
   const row = (
@@ -12,17 +12,17 @@ function SongRow({ song, stash, setStash }) {
         <div className="song-artist">{artist}</div>
         <div className="song-name">{song.name}</div>
       </div>
-      <SongButtonSection song={song} stash={stash} setStash={setStash} />
+      <SongButtonSection song={song} />
     </>
   );
 
   return row;
 }
 
-function SongButtonSection({ song, stash, setStash }) {
+function SongButtonSection({ song }) {
   return (
     <div className="song-buttons">
-      <StashButton song={song} stash={stash} setStash={setStash} />
+      <StashButton song={song} />
     </div>
   );
 }

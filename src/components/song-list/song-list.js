@@ -3,10 +3,13 @@ import { FixedSizeList as List } from "react-window";
 
 import SongRow from "../song/song-row";
 
-function SongList({ songs, stash, setStash }) {
+function SongList({ songs }) {
   const Row = ({ index, style }) => (
-    <div className={`song-item ${index % 2 ? "list-item-odd" : "list-item-even"}`} style={style}>
-      <SongRow song={songs[index]} stash={stash} setStash={setStash} />
+    <div
+      className={`song-item ${index % 2 ? "list-item-odd" : "list-item-even"}`}
+      style={style}
+    >
+      <SongRow song={songs[index]} />
     </div>
   );
 

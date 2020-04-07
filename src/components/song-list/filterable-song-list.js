@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import SearchBar from "../song-filter/search-bar";
 import SongList from "./song-list";
 
-function FilterableSongList({ songs, stash, setStash }) {
+function FilterableSongList({ songs }) {
   const [filterText, setFilterText] = useState("");
 
   const isMatch = (song) =>
@@ -15,11 +15,7 @@ function FilterableSongList({ songs, stash, setStash }) {
   return (
     <div>
       <SearchBar filterText={filterText} onFilterTextChange={setFilterText} />
-      <SongList
-        songs={songs.filter(isMatch)}
-        stash={stash}
-        setStash={setStash}
-      />
+      <SongList songs={songs.filter(isMatch)} />
     </div>
   );
 }
