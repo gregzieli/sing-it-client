@@ -16,7 +16,7 @@ function SongList({ songs }) {
   return (
     <List
       className="song-list"
-      height={window.innerHeight - 190}
+      height={window.innerHeight - 170}
       itemCount={songs.length}
       itemSize={50}
       width={"100%"}
