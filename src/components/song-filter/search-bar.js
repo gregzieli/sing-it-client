@@ -8,7 +8,7 @@ function SearchBar({ filterText, onFilterTextChange }) {
 
   return (
     <input
-      type="text"
+      type="search" 
       placeholder="Search..."
       className="input-search"
       value={filterText}
