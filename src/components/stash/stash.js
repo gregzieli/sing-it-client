@@ -7,15 +7,17 @@ function Stash() {
 
   const clearAll = () => setStash([]);
 
+  if (!stash.length) {
+    return <div>Wow, such empty ☹</div>;
+  }
+
   return (
-    <div>
-      {!!stash.length && (
-        <button style={{ marginBottom: 10 }} onClick={clearAll}>
-          Clear all
-        </button>
-      )}
+    <>
+      <button style={{ marginBottom: 10 }} onClick={clearAll}>
+        Clear all
+      </button>
       <SongList songs={stash} />
-    </div>
+    </>
   );
 }
 

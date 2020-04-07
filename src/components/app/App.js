@@ -1,19 +1,16 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import { useStateWithSessionStorage } from "../../hooks/storage";
 import StashContext from "../../contexts/stash-context";
+import ToastContainer from "../../setup/toast";
 import "./App.scss";
 
 const Home = lazy(() => import("../home/home"));
 const Stash = lazy(() => import("../stash/stash"));
 
 const App = () => {
-  toast.configure();
-
   const [songs, setSongs] = useState([]);
   const [stash, setStash] = useStateWithSessionStorage("stash", []);
 
@@ -37,12 +34,7 @@ const App = () => {
             </StashContext.Provider>
           </Switch>
         </Suspense>
-        <ToastContainer
-          autoClose={1500}
-          position="bottom-center"
-          hideProgressBar
-          newestOnTop
-        />
+        <ToastContainer />
       </div>
     </Router>
   );
