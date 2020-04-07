@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import { useStateWithSessionStorage } from "../../hooks/storage";
@@ -14,6 +14,8 @@ const App = () => {
   const [songs, setSongs] = useState([]);
   const [stash, setStash] = useStateWithSessionStorage("stash", []);
 
+  let location = useLocation();
+
   useEffect(() => {
     axios(`${process.env.REACT_APP_SERVER}/songs`).then((res) => {
       setSongs(res.data);
@@ -21,22 +23,20 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <div className="app">
-        <Suspense fallback={<div>Loading...</div>}>
-          <Link to="/">Songs</Link>
-          <Link to="/stash">Stash</Link>
-          <h1 className="app__title">Sing It!</h1>
-          <Switch>
-            <StashContext.Provider value={{ stash, setStash }}>
-              <Route exact path="/" render={() => <Home songs={songs} />} />
-              <Route path="/stash" component={Stash} />
-            </StashContext.Provider>
-          </Switch>
-        </Suspense>
-        <ToastContainer />
-      </div>
-    </Router>
+    <div className="app">
+      <Suspense fallback={<div>Loading...</div>}>
+        {location.pathname !== "/" && <Link to="/">Songs</Link>}
+        {location.pathname !== "/stash" && <Link to="/stash">Stash</Link>}
+        <h1 className="app__title">Sing It!</h1>
+        <Switch>
+          <StashContext.Provider value={{ stash, setStash }}>
+            <Route exact path="/" render={() => <Home songs={songs} />} />
+            <Route path="/stash" component={Stash} />
+          </StashContext.Provider>
+        </Switch>
+      </Suspense>
+      <ToastContainer />
+    </div>
   );
 };
 
