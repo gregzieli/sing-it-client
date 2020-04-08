@@ -1,6 +1,6 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
 import React from "react";
 import { toast } from "react-toastify";
+import { FaRegStar, FaStar } from "react-icons/fa";
 
 import StashContext from "../../contexts/stash-context";
 
@@ -9,24 +9,20 @@ function StashButton({ song }) {
 
   const add = () => {
     setStash((stash) => [...stash, song]);
-    toast("Added to stash");
+    toast("Added to favorites");
   };
 
   const remove = () => {
     setStash((stash) => stash.filter((x) => x._id !== song._id));
-    toast("Removed from stash");
+    toast("Removed from favorites");
   };
 
   const isInStash = stash.some((x) => x._id === song._id);
 
   return isInStash ? (
-    <span role="img" onClick={remove}>
-      📤
-    </span>
+    <FaStar onClick={remove} title={"Remove"} color={"gold"} size={24} />
   ) : (
-    <span role="img" onClick={add}>
-      📥
-    </span>
+    <FaRegStar onClick={add} title={"Add"} color={"#EBEBEB"} size={24} />
   );
 }
 

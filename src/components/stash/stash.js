@@ -8,7 +8,14 @@ function Stash() {
   const clearAll = () => setStash([]);
 
   if (!stash.length) {
-    return <div>Wow, such empty ☹</div>;
+    return (
+      <div>
+        Wow, such empty{" "}
+        <span role="img" aria-label="sad face">
+          ☹️
+        </span>
+      </div>
+    );
   }
 
   return (
