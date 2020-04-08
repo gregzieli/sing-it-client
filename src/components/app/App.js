@@ -1,42 +1,43 @@
-import React from "react";
+import React, { Suspense, lazy, useState, useEffect } from "react";
+import { Switch, Route, Link, useLocation } from "react-router-dom";
+import axios from "axios";
+
+import { useStateWithSessionStorage } from "../../hooks/storage";
+import StashContext from "../../contexts/stash-context";
+import ToastContainer from "../../setup/toast";
 import "./App.scss";
-import SongFilter from "../song-filter/song-filter";
-import SongList from "../song-list/song-list";
 
-class App extends React.Component {
-  constructor() {
-    super();
+const Home = lazy(() => import("../home/home"));
+const Stash = lazy(() => import("../stash/stash"));
 
-    this.state = {
-      songs: [],
-      filter: null
-    };
-  }
+const App = () => {
+  const [songs, setSongs] = useState([]);
+  const [stash, setStash] = useStateWithSessionStorage("stash", []);
 
-  async componentDidMount() {
-    const response = await fetch(`${process.env.REACT_APP_SERVER}/songs`);
-    const songs = await response.json();
-    this.setState({ songs: songs })
-  }
+  let location = useLocation();
 
-  updateSearch(inputValue) {
-    this.setState({
-      filter: inputValue
+  useEffect(() => {
+    axios(`${process.env.REACT_APP_SERVER}/songs`).then((res) => {
+      setSongs(res.data);
     });
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="app">
+  return (
+    <div className="app">
+      <Suspense fallback={<div>Loading...</div>}>
+        {location.pathname !== "/" && <Link to="/">Songs</Link>}
+        {location.pathname !== "/stash" && <Link to="/stash">Favorites</Link>}
         <h1 className="app__title">Sing It!</h1>
-        <SongFilter
-          updateSearch={this.updateSearch.bind(this)}
-          searchText={this.state.filter}
-        />
-        <SongList filter={this.state.filter} songs={this.state.songs} />
-      </div>
-    );
-  }
-}
+        <Switch>
+          <StashContext.Provider value={{ stash, setStash }}>
+            <Route exact path="/" render={() => <Home songs={songs} />} />
+            <Route path="/stash" component={Stash} />
+          </StashContext.Provider>
+        </Switch>
+      </Suspense>
+      <ToastContainer />
+    </div>
+  );
+};
 
 export default App;
