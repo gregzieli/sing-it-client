@@ -26,7 +26,7 @@ const App = () => {
     <div className="app">
       <Suspense fallback={<div>Loading...</div>}>
         {location.pathname !== "/" && <Link to="/">Songs</Link>}
-        {location.pathname !== "/stash" && <Link to="/stash">Stash</Link>}
+        {location.pathname !== "/stash" && <Link to="/stash">Favorites</Link>}
         <h1 className="app__title">Sing It!</h1>
         <Switch>
           <StashContext.Provider value={{ stash, setStash }}>
