@@ -1,6 +1,6 @@
 import React from "react";
 import SongList from "../song-list/song-list";
-import StashContext from "../../contexts/stash-context";
+import StashContext from "../../context/stash-context";
 
 function Stash() {
   const { stash, setStash } = React.useContext(StashContext);
