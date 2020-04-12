@@ -3,7 +3,7 @@ import { Switch, Route, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import { useStateWithSessionStorage } from "../../hooks/storage";
-import StashContext from "../../contexts/stash-context";
+import StashContext from "../../context/stash-context";
 import ToastContainer from "../../setup/toast";
 import "./App.scss";
 

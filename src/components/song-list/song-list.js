@@ -2,6 +2,7 @@ import React from "react";
 import { FixedSizeList as List } from "react-window";
 
 import SongRow from "../song/song-row";
+import useWindowHeight from "../../hooks/window-height";
 
 function SongList({ songs }) {
   const Row = ({ index, style }) => (
@@ -13,10 +14,12 @@ function SongList({ songs }) {
     </div>
   );
 
+  const windowHeight = useWindowHeight();
+
   return (
     <List
       className="song-list"
-      height={window.innerHeight - 170}
+      height={windowHeight - 170}
       itemCount={songs.length}
       itemSize={50}
       width={"100%"}

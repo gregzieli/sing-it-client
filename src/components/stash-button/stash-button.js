@@ -2,7 +2,7 @@ import React from "react";
 import { toast } from "react-toastify";
 import { FaRegStar, FaStar } from "react-icons/fa";
 
-import StashContext from "../../contexts/stash-context";
+import StashContext from "../../context/stash-context";
 
 function StashButton({ song }) {
   const { stash, setStash } = React.useContext(StashContext);
